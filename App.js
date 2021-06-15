@@ -4,6 +4,18 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./screens/HomeScreen";
 import AttractionTabNavigation from "./screens/AttractionTabNavigation";
+import firebase from './database/firebaseDB';
+
+// to add stuff to the collection in firebase
+// firebase.firestore().collection("attractions").add({
+//   name: "hello",
+// });
+
+// to retrieve stuff from firebase
+// firebase.firestore().collection("category").doc('themeWaterPark').get().then((doc) => {
+//   const name = doc.data().name;
+//   console.log(name);
+// })
 
 const Stack = createStackNavigator();
 
