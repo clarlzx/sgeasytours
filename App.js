@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 export default function HomeStackScreen() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator headerMode="none">
         <Stack.Screen name="Home Screen" component={HomeScreen} />
         <Stack.Screen
           name="Attraction Tab Screen"
