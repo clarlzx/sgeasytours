@@ -1,18 +1,26 @@
 import * as React from "react";
 import { View, Text, StyleSheet, ImageBackground } from "react-native";
 
-export default function TitleImage() {
+export default function TitleImage({ attractionDetails }) {
+  let name = "";
+  `${attractionDetails.name}`.split(" ").forEach((x) => {
+    name += x + "\n";
+  });
+  name = name.substring(0, name.length - 1);
+
+  const imageLink = attractionDetails.image;
+
   return (
     <View style={StyleSheet.absoluteFill}>
       <ImageBackground
         style={StyleSheet.absoluteFill}
         source={{
-          uri: "https://firebasestorage.googleapis.com/v0/b/sgeasytours.appspot.com/o/SEAAquarium.jpg?alt=media&token=c0c3e189-71f7-44d1-8d93-d725b3464248",
+          uri: `${imageLink}`,
         }}
       >
         <View style={styles.overlay} />
       </ImageBackground>
-      <Text style={styles.title}>SEA{"\n"}Aquarium</Text>
+      <Text style={styles.title}>{name}</Text>
     </View>
   );
 }

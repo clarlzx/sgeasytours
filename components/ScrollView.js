@@ -19,7 +19,9 @@ function ListItem({ item }) {
   return (
     <View style={styles.item}>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Attraction Tab Screen")}
+        onPress={() =>
+          navigation.navigate("Attraction Tab Screen", { ...item })
+        }
       >
         <Image
           source={{

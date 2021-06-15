@@ -8,16 +8,16 @@ import {
 } from "react-native";
 import Modal from "react-native-modal";
 
-export default function BookButton() {
+export default function BookButton({ attractionDetails }) {
+  const bookingLink = attractionDetails.bookingLink;
+
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity
         style={styles.button}
         // onPress={() => alert("This is a button!")}
         onPress={() => {
-          Linking.openURL(
-            "https://www.klook.com/en-SG/activity/119-sea-aquarium-singapore/"
-          );
+          Linking.openURL(`${bookingLink}`);
         }}
         activeOpacity={0.7}
       >

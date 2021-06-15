@@ -35,11 +35,13 @@ export default function App() {
         <Stack.Screen
           name="Attraction Tab Screen"
           component={AttractionTabNavigation}
-          options={({ navigation, route }) => ({
+          options={({ route }) => ({
             headerTitle: null,
             headerStatusBarHeight: 180,
-            headerBackground: () => <TitleImage />,
-            headerRight: () => <BookButton />,
+            headerBackground: () => (
+              <TitleImage attractionDetails={route.params} />
+            ),
+            headerRight: () => <BookButton attractionDetails={route.params} />,
             headerTintColor: "white",
           })}
         />
