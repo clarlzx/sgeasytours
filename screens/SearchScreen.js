@@ -6,9 +6,10 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { List, ListItem } from "react-native-elements";
 import firebase from "../database/firebaseDB";
 import { Toolbar } from "react-native-material-ui";
+import _ from "lodash";
+import { useNavigation } from "@react-navigation/native";
 
 function renderSeparator() {
   return (
@@ -23,15 +24,18 @@ function renderSeparator() {
 }
 
 function renderItem({ item }) {
+  //   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      style={styles.listCell}
-      onPress={() => {
-        navigation.navigate("Attraction Tab Screen", { ...item });
-      }}
-    >
-      <Text style={{ fontSize: 20, marginLeft: 10 }}>{item.name}</Text>
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity
+        style={styles.listCell}
+        // onPress={() => {
+        //   navigation.navigate("Attraction Tab Screen");
+        // }}
+      >
+        <Text style={{ fontSize: 20, marginLeft: 10 }}>{item.name}</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -50,12 +54,32 @@ export default function SearchScreen({ navigation }) {
       });
       list.sort((a, b) => a.name.localeCompare(b.name));
       setList(list);
+      setFullList(list);
     });
 
     return () => {
       unsubscribe();
     };
   }, []);
+
+  //Search functionality implementation
+  const [fullList, setFullList] = useState([]);
+
+  const contains = ({ name }, query) => {
+    const formattedName = name.toLowerCase();
+    if (formattedName.includes(query)) {
+      return true;
+    }
+    return false;
+  };
+
+  handleSearch = (input) => {
+    const formattedQuery = input.toLowerCase();
+    const filteredList = _.filter(fullList, (name) => {
+      return contains(name, formattedQuery);
+    });
+    setList(filteredList);
+  };
 
   return (
     <View style={styles.container}>
@@ -69,6 +93,7 @@ export default function SearchScreen({ navigation }) {
         searchable={{
           autoFocus: true,
           placeholder: "Search attractions...",
+          onChangeText: (input) => handleSearch(input),
         }}
       />
       <FlatList
