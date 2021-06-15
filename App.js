@@ -21,7 +21,7 @@ import AttractionTabNavigation from "./screens/AttractionTabNavigation";
 
 const Stack = createStackNavigator();
 
-export default function HomeStackScreen() {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
