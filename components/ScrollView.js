@@ -19,9 +19,8 @@ function ListItem({ item }) {
   return (
     <View style={styles.item}>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("Attraction Tab Screen", { ...item })
-        }
+        //If i'm not wrong, pass in props here to transfer to Attraction screen
+        onPress={() => navigation.navigate("Attraction Tab Screen")}
       >
         <Image
           source={{
@@ -146,7 +145,7 @@ const styles = StyleSheet.create({
     marginTop: 70,
   },
   sectionHeader: {
-    fontWeight: "800",
+    fontWeight: "bold",
     fontSize: 30,
     color: "black",
     marginTop: 20,
