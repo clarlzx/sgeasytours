@@ -10,8 +10,14 @@ const Stack = createStackNavigator();
 export default function HomeStackScreen() {
   return (
     <NavigationContainer>
-      <Stack.Navigator headerMode="none">
-        <Stack.Screen name="Home Screen" component={HomeScreen} />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home Screen"
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="Attraction Tab Screen"
           component={AttractionTabNavigation}
