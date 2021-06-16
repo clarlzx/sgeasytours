@@ -1,7 +1,10 @@
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { Context } from "../components/Context";
 
 export default function RecommendationsScreen() {
+  const dataList = React.useContext(Context);
+
   return (
     <View
       style={{
@@ -11,6 +14,7 @@ export default function RecommendationsScreen() {
         backgroundColor: "lightsalmon",
       }}
     >
+      <Text>{dataList.name}</Text>
       <Text>Hi I am the Recommendations screen!</Text>
     </View>
   );

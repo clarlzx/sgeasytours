@@ -19,8 +19,9 @@ function ListItem({ item }) {
   return (
     <View style={styles.item}>
       <TouchableOpacity
-        //If i'm not wrong, pass in props here to transfer to Attraction screen
-        onPress={() => navigation.navigate("Attraction Tab Screen")}
+        onPress={() =>
+          navigation.navigate("Attraction Tab Screen", { ...item })
+        }
       >
         <Image
           source={{
