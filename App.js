@@ -13,32 +13,12 @@ const db = firebase.firestore().collection("attractions");
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [attractions, setAttractions] = useState([]);
-
-  useEffect(() => {
-    const unsubscribe = db.onSnapshot((collection) => {
-      //Sort attractions alphabetically
-      const updateAttractions = collection.docs.map((doc) => {
-        return {
-          key: doc.id,
-          ...doc.data(),
-        };
-      });
-
-      setAttractions(updateAttractions);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="Home Screen"
-          children={() => <HomeScreen attractions={attractions} />}
+          component={HomeScreen}
           options={{
             headerShown: false,
           }}

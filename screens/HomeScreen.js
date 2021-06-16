@@ -3,8 +3,7 @@ import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import ScrollView from "../components/ScrollView";
 import SearchBar from "../components/SearchBar";
 
-export default function HomeScreen({ navigation, attractions }) {
-  console.log(attractions);
+export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground
