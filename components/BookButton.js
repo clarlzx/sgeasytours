@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   View,
   TouchableOpacity,
@@ -6,11 +6,9 @@ import {
   Linking,
   Text,
 } from "react-native";
-import Modal from "react-native-modal";
 
 export default function BookButton({ attractionDetails }) {
   const bookingLink = attractionDetails.bookingLink;
-
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity
