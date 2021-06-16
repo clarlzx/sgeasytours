@@ -28,8 +28,10 @@ export default function DetailsScreen() {
   coordinates = dataList.coordinates;
   website = dataList.website;
 
+  openingHours = openingHours.replace("\\n", "\n");
+
   function goToMap() {
-    console.log(coordinates[0] + ", " + coordinates[1]);
+    // console.log(coordinates[0] + ", " + coordinates[1]);
     openMap({
       query: queryName,
       // latitude: coordinates[0],
@@ -47,8 +49,6 @@ export default function DetailsScreen() {
       // <View
       style={{
         flex: 1,
-        // justifyContent: "center",
-        // alignItems: "center",
         padding: 20,
         paddingTop: 0,
         backgroundColor: "white",
