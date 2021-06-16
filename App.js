@@ -1,10 +1,12 @@
 import * as React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import TitleImage from "./components/TitleImage";
+import BookButton from "./components/BookButton";
+import firebase from "./database/firebaseDB";
 import HomeScreen from "./screens/HomeScreen";
 import AttractionTabNavigation from "./screens/AttractionTabNavigation";
-import firebase from "./database/firebaseDB";
 
 // to add stuff to the collection in firebase
 // firebase.firestore().collection("attractions").add({
@@ -33,8 +35,19 @@ export default function App() {
         <Stack.Screen
           name="Attraction Tab Screen"
           component={AttractionTabNavigation}
+          options={({ route }) => ({
+            headerTitle: null,
+            headerStatusBarHeight: 180,
+            headerBackground: () => (
+              <TitleImage attractionDetails={route.params} />
+            ),
+            headerRight: () => <BookButton attractionDetails={route.params} />,
+            headerTintColor: "white",
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({});
