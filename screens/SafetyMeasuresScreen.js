@@ -18,20 +18,56 @@ export default function SafetyMeasuresScreen() {
   const entrances = dataList.entrances;
   const sanitisers = dataList.handSanitiser;
 
+  const formattedEntrances = entrances.reduce(function (rows, key, index) {
+    return (
+      (index % 2 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) &&
+      rows
+    );
+  }, []);
+
+  const formattedSanitisers = sanitisers.reduce(function (rows, key, index) {
+    return (
+      (index % 2 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) &&
+      rows
+    );
+  }, []);
+
+  console.log("new data");
+  console.log(formattedEntrances);
+
+  // const LOCATIONS = [
+  //   {id: '1', spot: 'sweethut'}, {id: '2', spot:'hardrockcafe'}
+  // ]
+
+  const LOCATIONS = dataList.closedEateries;
+
+  // const MEASURES = [
+  //   {id: '1', measure: 'wear a mask bro'}, {id: '2', measure:'touch points sanitised every 2 hours'}
+  // ]
+
+  const MEASURES = dataList.measures;
+
   return (
     <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-      >
-        <Text style={styles.title}>
-          Safety measures: {"\n"}
-          <Text style={styles.content}>Wear a mask.</Text>
-        </Text>
-        <Text style={styles.title}>
-          Closed eateries: {"\n"}
-          <Text style={styles.content}>Dummy content.</Text>
-        </Text>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <FlatList 
+          data={MEASURES}
+          renderItem={({item}) => {
+            return (<Text>{`\u2022 ${item.measure}`}</Text>);
+          }}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={<Text style={styles.title}>Safety measures:</Text>}
+          style={{paddingBottom: 15}}
+        />
+        <FlatList 
+          data={LOCATIONS}
+          renderItem={({item}) => {
+            return (<Text>{`\u2022 ${item.eatery}`}</Text>);
+          }}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={<Text style={styles.title}>Closed Eateries:</Text>}
+          style={{paddingBottom: 15}}
+        />
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Map: {"\n"}</Text>
         <Text
           style={{
@@ -121,7 +157,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   content: {
     fontSize: 16,
