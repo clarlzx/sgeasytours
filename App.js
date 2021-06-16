@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -7,17 +7,6 @@ import BookButton from "./components/BookButton";
 import HomeScreen from "./screens/HomeScreen";
 import AttractionTabNavigation from "./screens/AttractionTabNavigation";
 import SearchScreen from "./screens/SearchScreen";
-
-// to add stuff to the collection in firebase
-// firebase.firestore().collection("attractions").add({
-//   name: "hello",
-// });
-
-// to retrieve stuff from firebase
-// firebase.firestore().collection("category").doc('themeWaterPark').get().then((doc) => {
-//   const name = doc.data().name;
-//   console.log(name);
-// })
 
 const Stack = createStackNavigator();
 

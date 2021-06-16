@@ -1,7 +1,9 @@
 import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { Context } from "../components/Context";
 
 export default function SafetyMeasuresScreen() {
+  const dataList = React.useContext(Context);
   return (
     <View
       style={{
@@ -11,6 +13,7 @@ export default function SafetyMeasuresScreen() {
         backgroundColor: "lightgreen",
       }}
     >
+      <Text>{dataList.name}</Text>
       <Text>Hi I am the Safety Measures screen!</Text>
     </View>
   );

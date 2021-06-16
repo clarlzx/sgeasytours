@@ -89,9 +89,9 @@ export default function SearchScreen({ navigation }) {
             <View>
               <TouchableOpacity
                 style={styles.listCell}
-                onPress={() => {
-                  navigation.navigate("Attraction Tab Screen");
-                }}
+                onPress={() =>
+                  navigation.navigate("Attraction Tab Screen", { ...item })
+                }
               >
                 <Text style={{ fontSize: 20, marginLeft: 10 }}>
                   {item.name}

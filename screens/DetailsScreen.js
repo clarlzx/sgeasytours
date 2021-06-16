@@ -1,7 +1,15 @@
 import * as React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Linking,
+} from "react-native";
 import firebase from "../database/firebaseDB";
 import openMap from "react-native-open-maps";
+//import so we can use the params from the initial context given
+import { Context } from "../components/Context";
 
 // const attractionInfo = firebase
 //   .firestore()
@@ -33,6 +41,8 @@ const attractionInfo = firebase
 // const overview = attractionInfo.overview;
 
 export default function DetailsScreen() {
+  const dataList = React.useContext(Context);
+
   function goToMap() {
     console.log(coordinates[0] + ", " + coordinates[1]);
     openMap({ latitude: coordinates[0], longitude: coordinates[1] });

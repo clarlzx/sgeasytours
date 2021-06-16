@@ -19,6 +19,7 @@
     "firebase": "^8.2.3",
     "firebase-tools": "^9.12.1",
     "lodash": "^4.17.21",
+    "google-distance-matrix": "^1.1.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
