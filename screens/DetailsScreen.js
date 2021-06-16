@@ -6,17 +6,9 @@ import {
   View,
   Linking,
 } from "react-native";
-import firebase from "../database/firebaseDB";
 import openMap from "react-native-open-maps";
 //import so we can use the params from the initial context given
 import { Context } from "../components/Context";
-
-// const attractionInfo = firebase
-//   .firestore()
-//   .collection("attractions")
-//   .doc("3HnaqZkongaJXXvPC0pR")
-//   .get();
-// .then(() => console.log("retrieved"));
 
 let overview = "";
 let openingHours = "";
@@ -24,24 +16,14 @@ let address = null;
 let coordinates = null;
 let website = "";
 
-const attractionInfo = firebase
-  .firestore()
-  .collection("attractions")
-  .doc("3HnaqZkongaJXXvPC0pR")
-  .get()
-  .then((doc) => {
-    overview = doc.data().overview;
-    openingHours = doc.data().openingHours;
-    address = doc.data().address;
-    coordinates = doc.data().coordinates;
-    website = doc.data().website;
-    console.log("done");
-  });
-
-// const overview = attractionInfo.overview;
-
 export default function DetailsScreen() {
   const dataList = React.useContext(Context);
+
+  overview = dataList.overview;
+  openingHours = dataList.openingHours;
+  address = dataList.address;
+  coordinates = dataList.coordinates;
+  website = dataList.website;
 
   function goToMap() {
     console.log(coordinates[0] + ", " + coordinates[1]);
