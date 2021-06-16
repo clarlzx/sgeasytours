@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchOuter: {
-    backgroundColor: "#1b1b26",
+    backgroundColor: "#BA68C8",
     width: "80%",
     marginTop: 100,
     borderRadius: 10,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   searchInner: {
-    backgroundColor: "#424242",
+    backgroundColor: "#663a82",
     borderRadius: 10,
     width: "90%",
     padding: 10,

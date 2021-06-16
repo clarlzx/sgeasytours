@@ -9,8 +9,8 @@ import {
 import firebase from "../database/firebaseDB";
 import { Toolbar } from "react-native-material-ui";
 import _ from "lodash";
-import { useNavigation } from "@react-navigation/native";
 
+//Function for the separator between each listed item
 function renderSeparator() {
   return (
     <View
@@ -20,22 +20,6 @@ function renderSeparator() {
         backgroundColor: "#CED0CE",
       }}
     />
-  );
-}
-
-function renderItem({ item }) {
-  //   const navigation = useNavigation();
-  return (
-    <View>
-      <TouchableOpacity
-        style={styles.listCell}
-        // onPress={() => {
-        //   navigation.navigate("Attraction Tab Screen");
-        // }}
-      >
-        <Text style={{ fontSize: 20, marginLeft: 10 }}>{item.name}</Text>
-      </TouchableOpacity>
-    </View>
   );
 }
 
@@ -99,7 +83,22 @@ export default function SearchScreen({ navigation }) {
       <FlatList
         style={{ width: "100%", height: "10%" }}
         data={list}
-        renderItem={renderItem}
+        renderItem={({ item }) => {
+          return (
+            <View>
+              <TouchableOpacity
+                style={styles.listCell}
+                onPress={() => {
+                  navigation.navigate("Attraction Tab Screen");
+                }}
+              >
+                <Text style={{ fontSize: 20, marginLeft: 10 }}>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          );
+        }}
         keyExtractor={(item) => item.id}
         ItemSeparatorComponent={renderSeparator}
       />
@@ -113,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchBar: {
-    backgroundColor: "#37474F",
+    backgroundColor: "#BA68C8",
     height: 100,
   },
   listCell: {
