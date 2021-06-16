@@ -42,7 +42,7 @@ export default function CrowdScreen() {
     <CrowdModal data={data} day={days[dayIndex]} time={timing[timeIndex-1]} percentage={(data/max)*100}/>
   );
 
-  const day = (day) => <Text style={{ fontSize: 9, textAlign: 'center' }}>{day}</Text>;
+  const day = (day) => <Text style={{ fontSize: 8, textAlign: 'center', paddingRight: 3 }}>{day}</Text>;
 
   console.log(dataList);
 
@@ -52,14 +52,14 @@ export default function CrowdScreen() {
       style={{
         flex: 1,
         justifyContent: "center",
-        backgroundColor: "#e4e5ea",
+        backgroundColor: "white",
         padding: 10
       }}
     >
         <View style={{
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#e4e5ea",
+          backgroundColor: "white",
           paddingBottom: 30,
           paddingTop: 20
           }}>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   crowdText: { fontWeight: 'bold', fontSize: 40, color: 'grey' },
   maxText: { fontSize: 15, color: 'grey' },
   headerText: { fontSize: 8, textAlign: 'center' },
-  row: { flexDirection: "row", backgroundColor: "#e4e5ea", height: 23 },
+  row: { flexDirection: "row", backgroundColor: "white", height: 23 },
   legend: { backgroundColor: "black", borderRadius: 60 },
   notcrowdedcircle: {width: 10,height: 10,borderRadius: 100 / 2,backgroundColor: "#bbc2b4", alignSelf:'flex-end'},
   somecrowdcircle: {width: 10,height: 10,borderRadius: 100 / 2,backgroundColor: "#7f9c6a", alignSelf:'flex-end'},
