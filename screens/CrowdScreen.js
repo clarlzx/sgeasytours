@@ -1,74 +1,97 @@
 import * as React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { Tooltip } from 'react-native-elements';
-import { Table, TableWrapper, Row, Rows, Col, Cell, Cols } from 'react-native-table-component';
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { Tooltip } from "react-native-elements";
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Rows,
+  Col,
+  Cell,
+  Cols,
+} from "react-native-table-component";
+import CrowdModal from "../components/CrowdModal";
 //import { DataTable } from 'react-native-paper';
 //import Tooltip from "react-native-walkthrough-tooltip";
 
 const CONTENT = {
   //tableHead: ['', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM', '7PM', '8PM', '9PM', '10PM'],
-  tableHead: ['', '0800', '0900', '1000', '1100', '1200', '1300', '1400', '1500', '1600', '1700', '1800', '1900', '2000', '2100', '2200'],
-  tableTitle: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  tableHead: [
+    "",
+    "0800",
+    "0900",
+    "1000",
+    "1100",
+    "1200",
+    "1300",
+    "1400",
+    "1500",
+    "1600",
+    "1700",
+    "1800",
+    "1900",
+    "2000",
+    "2100",
+    "2200",
+  ],
+  tableTitle: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
   tableData: [
-    ['Mon', 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
-    ['Tue', 20, 25, 30, 50, 80, 100, 200, 250, 250, 200, 150, 50, 35, 20, 20],
-    ['Wed', 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
-    ['Thu', 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
-    ['Fri', 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
-    ['Sat', 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
-    ['Sun', 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20]
+    ["Mon", 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
+    ["Tue", 20, 25, 30, 50, 80, 100, 200, 250, 250, 200, 150, 50, 35, 20, 20],
+    ["Wed", 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
+    ["Thu", 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
+    ["Fri", 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
+    ["Sat", 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
+    ["Sun", 30, 35, 40, 60, 100, 200, 300, 250, 250, 200, 100, 50, 30, 20, 20],
   ],
 };
 const crowd = 123;
 
 export default function CrowdScreen() {
   const element = (data) => (
-    <Tooltip popover={<Text>{data}</Text>} height={40} width={50}
-    >
-    <Text></Text>
-    </Tooltip>
+    <CrowdModal data={data} day="Monday" time="10:00-11:00" />
+    // <Tooltip popover={<Text>{data}</Text>} height={40} width={50}>
+    //   <Text></Text>
+    // </Tooltip>
   );
 
-  const day = (day) => (
-    <Text style={{fontSize: 9}}>{day}</Text>
-  );
+  const day = (day) => <Text style={{ fontSize: 9 }}>{day}</Text>;
 
   return (
     <View style={styles.container}>
-      <Text>
-        Live Crowd Number
-      </Text>
-      <Text>
-        {crowd}
-      </Text>
-      <Table borderStyle={{borderColor: 'white', borderWidth: 1}}>
-        <Row data={CONTENT.tableHead} style={styles.row} textStyle={styles.headerText}/>
-          {
-            CONTENT.tableData.map((rowData, index) => (
-              <TableWrapper key={index} style={styles.row}>
-                {
-                  rowData.map((cellData, cellIndex) => (
-                    <Cell key={cellIndex} data={cellIndex == 0 ? day(cellData) : element(cellData)}/>
-                  ))
-                }
-              </TableWrapper>
-            ))
-          }
+      <Text>Live Crowd Number</Text>
+      <Text>{crowd}</Text>
+      <Table borderStyle={{ borderColor: "white", borderWidth: 1 }}>
+        <Row
+          data={CONTENT.tableHead}
+          style={styles.row}
+          textStyle={styles.headerText}
+        />
+        {CONTENT.tableData.map((rowData, index) => (
+          <TableWrapper key={index} style={styles.row}>
+            {rowData.map((cellData, cellIndex) => (
+              <Cell
+                key={cellIndex}
+                data={cellIndex == 0 ? day(cellData) : element(cellData)}
+              />
+            ))}
+          </TableWrapper>
+        ))}
       </Table>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-  head: { height: 40, backgroundColor: '#FFF1C1'},
+  container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: "#fff" },
+  head: { height: 40, backgroundColor: "#FFF1C1" },
   headerText: { fontSize: 8 },
-  titleText: {margin: 2, fontSize: 7.5 },
-  title: { flex: 1, backgroundColor: '#f6f8fa' },
-  wrapper: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
-  row: { flexDirection: 'row', backgroundColor: '#FFF1C1' },
-  btn: { width: 58, height: 18, backgroundColor: '#78B7BB',  borderRadius: 2 },
-  btnText: { textAlign: 'center', color: '#fff' }
+  titleText: { margin: 2, fontSize: 7.5 },
+  title: { flex: 1, backgroundColor: "#f6f8fa" },
+  wrapper: { flexDirection: "row", backgroundColor: "#FFF1C1" },
+  row: { flexDirection: "row", backgroundColor: "#FFF1C1" },
+  btn: { width: 58, height: 18, backgroundColor: "#78B7BB", borderRadius: 2 },
+  btnText: { textAlign: "center", color: "#fff" },
 });
 // export default function CrowdScreen() {
 
@@ -250,7 +273,7 @@ const styles = StyleSheet.create({
 //                         key={timing.id}
 //                         onPress={}
 //                         children={
-//                           <Tooltip 
+//                           <Tooltip
 //                             popover={<Text>{timing.crowd}</Text>}
 //                           >
 //                           <Text>1</Text>
