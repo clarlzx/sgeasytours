@@ -4,6 +4,8 @@ import { Context } from "../components/Context";
 
 export default function CrowdScreen() {
   const dataList = React.useContext(Context);
+  console.log(dataList);
+
   return (
     <View
       style={{
