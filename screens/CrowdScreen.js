@@ -26,6 +26,18 @@ export default function CrowdScreen() {
 
   const max = dataList.maxCrowd;
 
+  const currPercentage = (crowd/max)*100;
+
+  let status = "";
+
+  if (currPercentage < 50) {
+    status = "Not Crowded"
+  } else if (currPercentage < 75) {
+    status = "Some Crowd"
+  } else {
+    status = "Crowded"
+  }
+
   const element = (data, dayIndex, timeIndex) => (
     <CrowdModal data={data} day={days[dayIndex]} time={timing[timeIndex-1]} percentage={(data/max)*100}/>
   );
@@ -40,19 +52,20 @@ export default function CrowdScreen() {
       style={{
         flex: 1,
         justifyContent: "center",
-        backgroundColor: "lightblue",
+        backgroundColor: "#e4e5ea",
         padding: 10
       }}
     >
         <View style={{
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "lightblue",
-          paddingBottom: 40
+          backgroundColor: "#e4e5ea",
+          paddingBottom: 30,
+          paddingTop: 20
           }}>
             <Text style={styles.dataText}>Live Crowd Number:</Text>
             <Text style={styles.crowdText}>{crowd}</Text>
-            <Text style={styles.maxText}>(Maximum Capacity: {max})</Text>
+            <Text style={styles.maxText}>(Status: {status})</Text>
         </View>
 
         <Table borderStyle={{borderColor: "white", borderWidth: 1 }}>
@@ -73,11 +86,11 @@ export default function CrowdScreen() {
           ))}
         </Table>
         <FlatList
-          data={[{status: "not crowded", key: 1} , {status: "some crowd", key: 2}, {status: "crowded", key: 3}]}
+          data={[{status: "Not Crowded", key: "1"} , {status: "Some Crowd", key: "2"}, {status: "Crowded", key: "3"}]}
           renderItem={({item}) => {
             return (
               <View style={{paddingRight: 10}}>
-                <View style={item.key==1?styles.greencircle:item.key==2?styles.pinkcircle:styles.redcircle}/>
+                <View style={ item.key==1 ? styles.notcrowdedcircle : item.key==2 ? styles.somecrowdcircle :styles.crowdedcircle }/>
                 <Text style={{fontSize: 10}}>{item.status}</Text>
               </View>
             );
@@ -94,9 +107,9 @@ const styles = StyleSheet.create({
   crowdText: { fontWeight: 'bold', fontSize: 40, color: 'grey' },
   maxText: { fontSize: 15, color: 'grey' },
   headerText: { fontSize: 8, textAlign: 'center' },
-  row: { flexDirection: "row", backgroundColor: "lightblue", height: 23 },
+  row: { flexDirection: "row", backgroundColor: "#e4e5ea", height: 23 },
   legend: { backgroundColor: "black", borderRadius: 60 },
-  greencircle: {width: 10,height: 10,borderRadius: 100 / 2,backgroundColor: "green", alignSelf:'flex-end'},
-  pinkcircle: {width: 10,height: 10,borderRadius: 100 / 2,backgroundColor: "pink", alignSelf:'flex-end'},
-  redcircle: {width: 10,height: 10,borderRadius: 100 / 2,backgroundColor: "red", alignSelf:'flex-end'},
+  notcrowdedcircle: {width: 10,height: 10,borderRadius: 100 / 2,backgroundColor: "#bbc2b4", alignSelf:'flex-end'},
+  somecrowdcircle: {width: 10,height: 10,borderRadius: 100 / 2,backgroundColor: "#7f9c6a", alignSelf:'flex-end'},
+  crowdedcircle: {width: 10,height: 10,borderRadius: 100 / 2,backgroundColor: "#5f4bc1", alignSelf:'flex-end'},
 });

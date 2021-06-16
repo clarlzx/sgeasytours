@@ -37,9 +37,9 @@ export default function CrowdModal({ day, time, data, percentage }) {
 const styles = StyleSheet.create({
   titletext: { fontWeight: "bold" },
   datatext: { fontWeight:"bold", color: "grey", fontSize: 22 },
-  crowdedbutton: { flex: 1, backgroundColor: "red" },
-  somecrowdbutton: { flex: 1, backgroundColor: "pink" },
-  notcrowdedbutton: { flex: 1, backgroundColor: "green" },
+  crowdedbutton: { flex: 1, backgroundColor: "#5f4bc1" },
+  somecrowdbutton: { flex: 1, backgroundColor: "#7f9c6a" },
+  notcrowdedbutton: { flex: 1, backgroundColor: "#bbc2b4" },
   container: {
     //flex: 0.2,
     height: 120,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   closeButton: {
     width: "100%",
     height: "30%",
-    backgroundColor: "lightblue",
+    backgroundColor: "#e4e5ea",
     position: "absolute",
     bottom: 0,
     left: 0,

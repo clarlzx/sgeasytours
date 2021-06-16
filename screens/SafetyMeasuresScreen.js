@@ -48,10 +48,22 @@ export default function SafetyMeasuresScreen() {
   console.log("new data");
   console.log(formattedEntrances);
 
+  // const LOCATIONS = [
+  //   {id: '1', spot: 'sweethut'}, {id: '2', spot:'hardrockcafe'}
+  // ]
+
+  const LOCATIONS = dataList.closedEateries;
+
+  // const MEASURES = [
+  //   {id: '1', measure: 'wear a mask bro'}, {id: '2', measure:'touch points sanitised every 2 hours'}
+  // ]
+
+  const MEASURES = dataList.measures;
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <Text style={styles.title}>
+        {/* <Text style={styles.title}>
           Safety measures: {"\n"}
           <Text style={styles.content}>Wear a mask.</Text>
         </Text>
@@ -62,8 +74,26 @@ export default function SafetyMeasuresScreen() {
             data={closedEateries}
             renderItem={({ item }) => <ListItem item={item} />}
             keyExtractor={({ item }) => item}
-          /> */}
-        </Text>
+          /> 
+        </Text> */}
+        <FlatList 
+          data={MEASURES}
+          renderItem={({item}) => {
+            return (<Text>{`\u2022 ${item.measure}`}</Text>);
+          }}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={<Text style={styles.title}>Safety measures:</Text>}
+          style={{paddingBottom: 15}}
+        />
+        <FlatList 
+          data={LOCATIONS}
+          renderItem={({item}) => {
+            return (<Text>{`\u2022 ${item.eatery}`}</Text>);
+          }}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={<Text style={styles.title}>Closed Eateries:</Text>}
+          style={{paddingBottom: 15}}
+        />
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Map: {"\n"}</Text>
         {/* <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Text style={{ color: "grey", marginBottom: 10, fontSize: 20 }}>
@@ -132,7 +162,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   content: {
     fontSize: 16,
