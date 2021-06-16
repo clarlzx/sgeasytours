@@ -6,6 +6,7 @@ import {
   ScrollView,
   FlatList,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { Context } from "../components/Context";
 import MapView from "react-native-maps";
@@ -32,8 +33,8 @@ export default function SafetyMeasuresScreen() {
     );
   }, []);
 
-  console.log("new data");
-  console.log(formattedEntrances);
+  // console.log("new data");
+  // console.log(formattedEntrances);
 
   // const LOCATIONS = [
   //   {id: '1', spot: 'sweethut'}, {id: '2', spot:'hardrockcafe'}
@@ -49,26 +50,39 @@ export default function SafetyMeasuresScreen() {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <FlatList 
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollView}
+      >
+        <FlatList
           data={MEASURES}
-          renderItem={({item}) => {
-            return (<Text>{`\u2022 ${item.measure}`}</Text>);
+          renderItem={({ item }) => {
+            return (
+              <Text style={{ fontSize: 16 }}>{`\u2022 ${item.measure}`}</Text>
+            );
           }}
-          keyExtractor={item => item.id}
-          ListHeaderComponent={<Text style={styles.title}>Safety measures:</Text>}
-          style={{paddingBottom: 15}}
+          keyExtractor={(item) => item.id}
+          ListHeaderComponent={
+            <Text style={styles.title}>Safety measures:</Text>
+          }
+          style={{ paddingBottom: 15 }}
         />
-        <FlatList 
+        <FlatList
           data={LOCATIONS}
-          renderItem={({item}) => {
-            return (<Text>{`\u2022 ${item.eatery}`}</Text>);
+          renderItem={({ item }) => {
+            return (
+              <Text style={{ fontSize: 16 }}>{`\u2022 ${item.eatery}`}</Text>
+            );
           }}
-          keyExtractor={item => item.id}
-          ListHeaderComponent={<Text style={styles.title}>Closed Eateries:</Text>}
-          style={{paddingBottom: 15}}
+          keyExtractor={(item) => item.id}
+          ListHeaderComponent={
+            <Text style={styles.title}>Closed Eateries:</Text>
+          }
+          style={{ paddingBottom: 15 }}
         />
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Map: {"\n"}</Text>
+        <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}>
+          Map:
+        </Text>
         <Text
           style={{
             fontSize: 16,
@@ -79,20 +93,25 @@ export default function SafetyMeasuresScreen() {
         >
           Zoom in to view the location of the markers!
         </Text>
+        <Text style={{ alignSelf: "center", marginBottom: 10 }}>
+          Tap on the markers to view more details!
+        </Text>
         <View
           style={{
-            flex: 1,
             flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: "flex-end",
+            marginTop: 5,
+            marginRight: 10,
           }}
         >
-          <Text>Legend:</Text>
-          <View style={[styles.textBox, { backgroundColor: "#decf2c" }]}>
-            <Text>Entrances</Text>
+          <Text style={{ fontSize: 14, fontWeight: "bold" }}>Legend:</Text>
+          <View style={{ marginLeft: 10 }}>
+            <View style={styles.entranceCircle} />
+            <Text style={{ fontSize: 11 }}>Entrances</Text>
           </View>
-          <View style={[styles.textBox, { backgroundColor: "#24cbd4" }]}>
-            <Text>Hand sanitiser points</Text>
+          <View style={{ marginLeft: 10 }}>
+            <View style={styles.handSanitiserCircle} />
+            <Text style={{ fontSize: 11 }}>Hand sanitiser{"\n"}points</Text>
           </View>
         </View>
         <MapView
@@ -151,8 +170,10 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   map: {
-    width: 320,
+    width: Dimensions.get("screen").width * 0.9,
     height: 320,
+    alignSelf: "center",
+    marginTop: 5,
   },
   title: {
     fontSize: 20,
@@ -165,4 +186,18 @@ const styles = StyleSheet.create({
   },
   textBox: { borderRadius: 5, margin: 5, padding: 10 },
   list: { flex: 1, flexDirection: "row", padding: 10 },
+  entranceCircle: {
+    width: 10,
+    height: 10,
+    borderRadius: 100 / 2,
+    backgroundColor: "#decf2c",
+    alignSelf: "flex-end",
+  },
+  handSanitiserCircle: {
+    width: 10,
+    height: 10,
+    borderRadius: 100 / 2,
+    backgroundColor: "#24cbd4",
+    alignSelf: "flex-end",
+  },
 });

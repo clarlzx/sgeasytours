@@ -47,6 +47,7 @@ export default function DetailsScreen() {
   return (
     <ScrollView
       // <View
+      showsVerticalScrollIndicator={false}
       style={{
         flex: 1,
         padding: 20,

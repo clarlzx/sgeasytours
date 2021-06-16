@@ -114,7 +114,8 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     backgroundColor: "#BA68C8",
-    height: 100,
+    height: 120,
+    paddingTop: 50,
   },
   listCell: {
     padding: 15,
