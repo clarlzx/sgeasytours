@@ -19,10 +19,25 @@ function ListItem({ item }) {
   );
 }
 
-export default function SafetyMeasuresScreen() {
-  const [isEntrance, setBoolean] = useState(true);
+const staticData = [
+  { coordinates: { latitude: 37.78383, longitude: -122.405766 } },
+  { coordinates: { latitude: 37.78584, longitude: -122.405478 } },
+  { coordinates: { latitude: 37.784738, longitude: -122.402839 } },
+];
 
-  function buttonPressed() {}
+export default function SafetyMeasuresScreen() {
+  console.log("new data");
+
+  const [isEntrance, setEntrance] = useState(false);
+  const [isSanitiser, setSanitiser] = useState(false);
+
+  function entrancePressed() {
+    return isEntrance ? setEntrance(false) : setEntrance(true);
+  }
+
+  function sanitiserPressed() {
+    return isSanitiser ? setSanitiser(false) : setEntrance(true);
+  }
 
   const dataList = React.useContext(Context);
   const latitude = dataList.coordinates[0];
@@ -30,23 +45,9 @@ export default function SafetyMeasuresScreen() {
   const closedEateries = dataList.closedEateries;
   const entrances = dataList.entrances;
   const sanitisers = dataList.handSanitiser;
-
-  const formattedEntrances = entrances.reduce(function (rows, key, index) {
-    return (
-      (index % 2 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) &&
-      rows
-    );
-  }, []);
-
-  const formattedSanitisers = sanitisers.reduce(function (rows, key, index) {
-    return (
-      (index % 2 == 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) &&
-      rows
-    );
-  }, []);
-
-  console.log("new data");
-  console.log(formattedEntrances);
+  console.log(typeof entrances[0].coordinates.longitude);
+  console.log(typeof staticData[0].coordinates.longitude);
+  // console.log(staticData.coordinates);
 
   return (
     <View style={styles.container}>
@@ -58,20 +59,13 @@ export default function SafetyMeasuresScreen() {
         <Text style={styles.title}>
           Closed eateries: {"\n"}
           <Text style={styles.content}>Dummy content.</Text>
-          {/* <FlatList
-            data={closedEateries}
-            renderItem={({ item }) => <ListItem item={item} />}
-            keyExtractor={({ item }) => item}
-          /> */}
         </Text>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Map: {"\n"}</Text>
-        {/* <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Text style={{ color: "grey", marginBottom: 10, fontSize: 20 }}>
-            {isEntrance
-              ? "Entrances are now pinned"
-              : "Hand sanitiser points are now pinned"}
-          </Text>
-        </View> */}
+        <Text
+          style={{ fontSize: 16, alignSelf: "center", textAlign: "center" }}
+        >
+          Press button to show corresponding markers, press again to hide!
+        </Text>
         <View
           style={{
             flex: 1,
@@ -80,33 +74,56 @@ export default function SafetyMeasuresScreen() {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity onPress={entrancePressed} style={styles.button}>
             <Text style={styles.buttonText}>Entrances</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity onPress={sanitiserPressed} style={styles.button}>
             <Text style={styles.buttonText}>Hand sanitiser points</Text>
           </TouchableOpacity>
         </View>
+        {/* <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: 37.783363,
+            longitude: -122.403908,
+            latitudeDelta: 0.015922,
+            longitudeDelta: 0.015421,
+          }}
+        >
+          {staticData.map((item, index) => {
+            console.log(index);
+            <Marker key={index} title="Test" coordinate={item.coordinates} />;
+          })}
+        </MapView> */}
+
         <MapView
           initialRegion={{
             latitude: latitude,
             longitude: longitude,
-            latitudeDelta: 0.008,
-            longitudeDelta: 0.004,
+            latitudeDelta: 0.0008,
+            longitudeDelta: 0.0004,
           }}
           style={styles.map}
           mapType="hybrid"
         >
-          <Marker
-            coordinate={{ latitude: latitude, longitude: longitude }}
+          {/* <Marker
+            coordinate={{
+              latitude: latitude,
+              longitude: longitude,
+            }}
             title={dataList.name}
-          />
-          {/* {formattedEntrances.map((marker) => (
+          /> */}
+          {entrances.map((item, index) => {
+            // console.log(item);
             <Marker
-              coordinate={{ latitude: latitude, longitude: longitude }}
-              title={marker.title}
-            />
-          ))} */}
+              key={index}
+              coordinate={{
+                latitude: item.coordinates.latitude,
+                longitude: item.coordinates.longitude,
+              }}
+              title="Test"
+            />;
+          })}
         </MapView>
       </ScrollView>
     </View>
