@@ -28,7 +28,7 @@ export default function DetailsScreen() {
   coordinates = dataList.coordinates;
   website = dataList.website;
 
-  openingHours = openingHours.replace("\\n", "\n");
+  openingHours = openingHours.replace(/\\n/g, "\n");
 
   function goToMap() {
     // console.log(coordinates[0] + ", " + coordinates[1]);
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "normal",
     textAlign: "justify",
+    lineHeight: 24,
   },
   button: {
     color: "white",
