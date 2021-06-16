@@ -5,11 +5,13 @@ import {
   TouchableOpacity,
   View,
   Linking,
+  ScrollView,
 } from "react-native";
 import openMap from "react-native-open-maps";
 //import so we can use the params from the initial context given
 import { Context } from "../components/Context";
 
+let queryName = "";
 let overview = "";
 let openingHours = "";
 let address = null;
@@ -19,6 +21,7 @@ let website = "";
 export default function DetailsScreen() {
   const dataList = React.useContext(Context);
 
+  queryName = dataList.queryName;
   overview = dataList.overview;
   openingHours = dataList.openingHours;
   address = dataList.address;
@@ -27,7 +30,12 @@ export default function DetailsScreen() {
 
   function goToMap() {
     console.log(coordinates[0] + ", " + coordinates[1]);
-    openMap({ latitude: coordinates[0], longitude: coordinates[1] });
+    openMap({
+      query: queryName,
+      // latitude: coordinates[0],
+      // longitude: coordinates[1],
+      zoom: 18,
+    });
   }
 
   function goToSite() {
@@ -35,53 +43,33 @@ export default function DetailsScreen() {
   }
 
   return (
-    <View
+    <ScrollView
+      // <View
       style={{
         flex: 1,
         // justifyContent: "center",
         // alignItems: "center",
         padding: 20,
-        backgroundColor: "lemonchiffon",
+        paddingTop: 0,
+        backgroundColor: "white",
       }}
     >
-      <Text style={styles.title}>
-        Overview:{"\n"} <Text style={styles.content}>{overview}</Text>
-      </Text>
-      <TouchableOpacity
-        onPress={goToSite}
-        style={{
-          borderRadius: 3,
-          backgroundColor: "lightpink",
-          padding: 5,
-          width: 50,
-          alignItems: "center",
-          fontSize: 16,
-        }}
-      >
-        <Text>More</Text>
+      <Text style={styles.title}>Overview</Text>
+      <Text style={styles.content}>{overview}</Text>
+      <TouchableOpacity onPress={goToSite} style={styles.button}>
+        <Text style={styles.buttonText}>More</Text>
       </TouchableOpacity>
 
-      <Text style={styles.title}>
-        Opening hours:{"\n"} <Text style={styles.content}>{openingHours}</Text>
-      </Text>
+      <Text style={styles.title}>Opening hours</Text>
+      <Text style={styles.content}>{openingHours}</Text>
 
-      <Text style={styles.title}>
-        Location:{"\n"} <Text style={styles.content}>{address}</Text>
-      </Text>
-      <TouchableOpacity
-        onPress={goToMap}
-        style={{
-          borderRadius: 3,
-          backgroundColor: "lightpink",
-          padding: 5,
-          width: 50,
-          alignItems: "center",
-          fontSize: 16,
-        }}
-      >
-        <Text>Map</Text>
+      <Text style={styles.title}>Location</Text>
+      <Text style={styles.content}>{address}</Text>
+      <TouchableOpacity onPress={goToMap} style={styles.button}>
+        <Text style={styles.buttonText}>Map</Text>
       </TouchableOpacity>
-    </View>
+      {/* </View> */}
+    </ScrollView>
   );
 }
 
@@ -89,10 +77,26 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
+    marginTop: 15,
+    marginBottom: 5,
   },
   content: {
     fontSize: 16,
     fontWeight: "normal",
-    marginBottom: 20,
+    textAlign: "justify",
+  },
+  button: {
+    color: "white",
+    borderRadius: 3,
+    backgroundColor: "#BA68C8",
+    padding: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    // width: 70,
+    alignItems: "center",
+    fontSize: 16,
+  },
+  buttonText: {
+    color: "white",
   },
 });
