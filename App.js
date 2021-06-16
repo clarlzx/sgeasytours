@@ -4,9 +4,9 @@ import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import TitleImage from "./components/TitleImage";
 import BookButton from "./components/BookButton";
-import firebase from "./database/firebaseDB";
 import HomeScreen from "./screens/HomeScreen";
 import AttractionTabNavigation from "./screens/AttractionTabNavigation";
+import SearchScreen from "./screens/SearchScreen";
 
 // to add stuff to the collection in firebase
 // firebase.firestore().collection("attractions").add({
@@ -28,6 +28,13 @@ export default function App() {
         <Stack.Screen
           name="Home Screen"
           component={HomeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Search Screen"
+          component={SearchScreen}
           options={{
             headerShown: false,
           }}

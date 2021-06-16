@@ -1,7 +1,12 @@
 import * as React from "react";
-import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import ScrollView from "../components/ScrollView";
-import SearchBar from "../components/SearchBar";
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -10,7 +15,14 @@ export default function HomeScreen({ navigation }) {
         source={require("../assets/app-title.png")}
         style={styles.image}
       >
-        <SearchBar style={styles.searchBar} />
+        <View style={styles.searchOuter}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Search Screen")}
+            style={styles.searchInner}
+          >
+            <Text style={styles.searchText}>Search attractions...</Text>
+          </TouchableOpacity>
+        </View>
         <ScrollView />
       </ImageBackground>
     </View>
@@ -29,8 +41,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  searchBar: {
+  searchOuter: {
+    backgroundColor: "#BA68C8",
+    width: "80%",
+    marginTop: 100,
+    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
+    padding: 10,
+  },
+  searchInner: {
+    backgroundColor: "#663a82",
+    borderRadius: 10,
+    width: "90%",
+    padding: 10,
+  },
+  searchText: {
+    color: "white",
+    fontSize: 18,
   },
 });
