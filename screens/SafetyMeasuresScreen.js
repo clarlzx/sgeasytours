@@ -8,22 +8,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Context } from "../components/Context";
-import MapView, { Marker } from "react-native-maps";
-
-function ListItem({ item }) {
-  return (
-    <View style={styles.list}>
-      <Text style={{ fontSize: 20 }}>{"\u2B24"}</Text>
-      <Text>{item}</Text>
-    </View>
-  );
-}
+import MapView from "react-native-maps";
 
 export default function SafetyMeasuresScreen() {
-  const [isEntrance, setBoolean] = useState(true);
-
-  function buttonPressed() {}
-
   const dataList = React.useContext(Context);
   const latitude = dataList.coordinates[0];
   const longitude = dataList.coordinates[1];
@@ -63,19 +50,6 @@ export default function SafetyMeasuresScreen() {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        {/* <Text style={styles.title}>
-          Safety measures: {"\n"}
-          <Text style={styles.content}>Wear a mask.</Text>
-        </Text>
-        <Text style={styles.title}>
-          Closed eateries: {"\n"}
-          <Text style={styles.content}>Dummy content.</Text>
-          {/* <FlatList
-            data={closedEateries}
-            renderItem={({ item }) => <ListItem item={item} />}
-            keyExtractor={({ item }) => item}
-          /> 
-        </Text> */}
         <FlatList 
           data={MEASURES}
           renderItem={({item}) => {
@@ -95,13 +69,16 @@ export default function SafetyMeasuresScreen() {
           style={{paddingBottom: 15}}
         />
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Map: {"\n"}</Text>
-        {/* <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Text style={{ color: "grey", marginBottom: 10, fontSize: 20 }}>
-            {isEntrance
-              ? "Entrances are now pinned"
-              : "Hand sanitiser points are now pinned"}
-          </Text>
-        </View> */}
+        <Text
+          style={{
+            fontSize: 16,
+            alignSelf: "center",
+            textAlign: "center",
+            marginBottom: 10,
+          }}
+        >
+          Zoom in to view the location of the markers!
+        </Text>
         <View
           style={{
             flex: 1,
@@ -110,12 +87,13 @@ export default function SafetyMeasuresScreen() {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Entrances</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>Hand sanitiser points</Text>
-          </TouchableOpacity>
+          <Text>Legend:</Text>
+          <View style={[styles.textBox, { backgroundColor: "#decf2c" }]}>
+            <Text>Entrances</Text>
+          </View>
+          <View style={[styles.textBox, { backgroundColor: "#24cbd4" }]}>
+            <Text>Hand sanitiser points</Text>
+          </View>
         </View>
         <MapView
           initialRegion={{
@@ -127,16 +105,33 @@ export default function SafetyMeasuresScreen() {
           style={styles.map}
           mapType="hybrid"
         >
-          <Marker
-            coordinate={{ latitude: latitude, longitude: longitude }}
+          <MapView.Marker
+            coordinate={{
+              latitude: latitude,
+              longitude: longitude,
+            }}
             title={dataList.name}
           />
-          {/* {formattedEntrances.map((marker) => (
-            <Marker
-              coordinate={{ latitude: latitude, longitude: longitude }}
-              title={marker.title}
-            />
-          ))} */}
+          {entrances.map((item, index) => {
+            return (
+              <MapView.Marker
+                pinColor="yellow"
+                key={index}
+                coordinate={item.coordinates}
+                title="Entrance"
+              />
+            );
+          })}
+          {sanitisers.map((item, index) => {
+            return (
+              <MapView.Marker
+                pinColor="aqua"
+                key={index}
+                coordinate={item.coordinates}
+                title="Hand sanitiser point"
+              />
+            );
+          })}
         </MapView>
       </ScrollView>
     </View>
@@ -168,17 +163,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "normal",
   },
-  button: {
-    backgroundColor: "#BA68C8",
-    padding: 10,
-    margin: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    height: 60,
-  },
-  buttonText: {
-    color: "white",
-  },
+  textBox: { borderRadius: 5, margin: 5, padding: 10 },
   list: { flex: 1, flexDirection: "row", padding: 10 },
 });
