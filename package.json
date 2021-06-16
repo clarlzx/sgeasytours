@@ -14,11 +14,12 @@
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
     "expo": "~41.0.1",
+    "expo-blur": "~9.0.3",
     "expo-status-bar": "~1.0.4",
     "firebase": "^8.2.3",
     "firebase-tools": "^9.12.1",
     "geolib": "^3.3.1",
-    "google-distance-matrix": "^1.1.1",
+    "google-distance-matrix": "^0.0.2",
     "lodash": "^4.17.21",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -37,8 +38,7 @@
     "react-native-table-component": "^1.2.1",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.0.0",
-    "react-native-web": "~0.13.12",
-    "undefined": "expo/vector-icons"
+    "react-native-web": "^0.16.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
