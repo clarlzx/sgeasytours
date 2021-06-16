@@ -11,7 +11,9 @@ export default function DetailsScreen() {
         backgroundColor: "lemonchiffon",
       }}
     >
-      <Text>Hi I am the Details screen!</Text>
+      <Text>Overview</Text>
+      <Text>Opening hours:</Text>
+      <Text>Location:</Text>
     </View>
   );
 }
