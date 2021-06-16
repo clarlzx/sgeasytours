@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { Context } from "../components/Context";
 import firebase from "../database/firebaseDB";
+import { getDistance } from "geolib";
+import RecommendationItem from "../components/RecommendationItem";
 
 export default function RecommendationsScreen({ navigation }) {
   const dataList = React.useContext(Context);
@@ -19,15 +21,26 @@ export default function RecommendationsScreen({ navigation }) {
     const unsubscribe = firebase
       .firestore()
       .collection("attractions")
-      .where("name", "!=", dataList.name)
       .onSnapshot((collection) => {
         const attractions = collection.docs.map((doc) => {
+          const distance = getDistance(
+            {
+              latitude: doc.data().coordinates[0],
+              longitude: doc.data().coordinates[1],
+            },
+            {
+              latitude: dataList.coordinates[0],
+              longitude: dataList.coordinates[1],
+            }
+          );
+
           return {
+            ...doc.data(),
             key: doc.id,
-            name: doc.data().name,
+            distance: (distance / 1000).toFixed(2), //in KM, to 2 d.p.
           };
         });
-
+        attractions.sort((a, b) => a.distance.localeCompare(b.distance));
         setAttractions(attractions);
       });
 
@@ -45,29 +58,28 @@ export default function RecommendationsScreen({ navigation }) {
         backgroundColor: "lightsalmon",
       }}
     >
-      <Text>{dataList.name}</Text>
-      <Text>Hi I am the Recommendations screen!</Text>
+      <Text style={{ padding: 10, fontSize: 20, marginTop: 5 }}>
+        Visit somewhere else near!
+      </Text>
       <FlatList
-        data={attractions}
+        style={styles.flatList}
+        data={attractions.filter(
+          (attraction) => attraction.name != dataList.name
+        )}
         renderItem={({ item }) => (
-          <View
-            style={{
-              height: 50,
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Attraction Tab Screen", { ...item })
-              }
-            >
-              <Text>{item.name}</Text>
-            </TouchableOpacity>
-          </View>
+          <RecommendationItem
+            item={item}
+            dataList={dataList}
+            navigation={navigation}
+          />
         )}
       />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  flatList: {
+    width: "100%",
+  },
+});
