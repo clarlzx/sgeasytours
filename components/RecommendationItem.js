@@ -22,97 +22,42 @@ function bringLastWordToNextLine(str) {
 
 function Name({ value }) {
   return (
-    <View
-      style={{
-        width: Dimensions.get("screen").width * 0.42,
-        height: "100%",
-        justifyContent: "center",
-        borderBottomRightRadius: 0,
-        borderTopRightRadius: 0,
-        borderRadius: 4,
-        borderColor: "white",
-        borderRightWidth: 1,
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 15,
-          fontWeight: "bold",
-          paddingLeft: 15,
-          paddingRight: 10,
-        }}
-      >
-        {bringLastWordToNextLine(value)}
-      </Text>
+    <View style={styles.nameContainer}>
+      <Text style={styles.nameText}>{bringLastWordToNextLine(value)}</Text>
     </View>
   );
 }
 
 function Distance({ value }) {
   return (
-    <View
-      style={{
-        width: Dimensions.get("screen").width * 0.15,
-        padding: 5,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Text style={{ fontSize: 16 }}>{value}</Text>
-      <Text style={{ fontSize: 16 }}>KM</Text>
+    <View style={styles.distanceContainer}>
+      <Text style={styles.distanceTextTop}>{value}</Text>
+      <Text style={styles.distanceTextBottom}>KM</Text>
     </View>
   );
 }
 
 function DrivingTime({ value }) {
   return (
-    <View
-      style={{
-        width: Dimensions.get("screen").width * 0.15,
-        padding: 5,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <FontAwesome name="car" size={24} color="black" />
-      <Text>{value} min</Text>
+    <View style={styles.drivingContainer}>
+      <FontAwesome name="car" size={24} color="indianred" />
+      <Text style={styles.drivingText}>{value} min</Text>
     </View>
   );
 }
 
 function WalkingTime({ value }) {
   return (
-    <View
-      style={{
-        width: Dimensions.get("screen").width * 0.15,
-        padding: 5,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <FontAwesome5 name="walking" size={24} color="black" />
-      <Text>{value} min</Text>
+    <View style={styles.walkingContainer}>
+      <FontAwesome5 name="walking" size={24} color="darkolivegreen" />
+      <Text style={styles.walkingText}>{value} min</Text>
     </View>
   );
 }
 
 export default function ({ item, dataList, navigation }) {
   return (
-    <View
-      style={{
-        width: Dimensions.get("screen").width * 0.92,
-        height: 70,
-        flex: 1,
-        justifyContent: "center",
-        alignSelf: "center",
-        marginVertical: 8,
-        marginHorizontal: 16,
-        borderWidth: 1,
-        borderColor: "white",
-        borderRadius: 4,
-        backgroundColor: `rgba(255,255,255,0.4)`,
-      }}
-    >
+    <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("Attraction Tab Screen", { ...item });
@@ -122,12 +67,7 @@ export default function ({ item, dataList, navigation }) {
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal={true}
-          style={{
-            width: Dimensions.get("screen").width * 0.92,
-            height: "100%",
-            borderRadius: 4,
-            alignSelf: "center",
-          }}
+          style={styles.horizontalFlatList}
           data={[
             { value: item.name, key: 1 },
             { value: item.distance, key: 2 },
@@ -150,3 +90,77 @@ export default function ({ item, dataList, navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: Dimensions.get("screen").width * 0.9,
+    height: 80,
+    flex: 1,
+    justifyContent: "center",
+    alignSelf: "center",
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderWidth: 1,
+    borderColor: `rgba(0,0,0,0.85)`,
+    borderRadius: 4,
+    backgroundColor: `rgba(10,0,200,0.2)`,
+  },
+  horizontalFlatList: {
+    width: Dimensions.get("screen").width * 0.9,
+    height: "100%",
+    borderRadius: 4,
+    alignSelf: "center",
+  },
+  nameContainer: {
+    width: Dimensions.get("screen").width * 0.42,
+    height: "100%",
+    justifyContent: "center",
+    borderBottomRightRadius: 0,
+    borderTopRightRadius: 0,
+    borderRadius: 4,
+    borderColor: "grey",
+    borderRightWidth: 1,
+  },
+  nameText: {
+    fontSize: 17,
+    fontWeight: "bold",
+    paddingLeft: 15,
+    paddingRight: 10,
+  },
+  distanceContainer: {
+    width: Dimensions.get("screen").width * 0.15,
+    padding: 3,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  distanceTextTop: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "darkblue",
+  },
+  distanceTextBottom: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "darkblue",
+  },
+  drivingContainer: {
+    width: Dimensions.get("screen").width * 0.16,
+    padding: 3,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  drivingText: {
+    fontWeight: "bold",
+    color: "indianred",
+  },
+  walkingContainer: {
+    width: Dimensions.get("screen").width * 0.16,
+    padding: 3,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  walkingText: {
+    fontWeight: "bold",
+    color: "darkolivegreen",
+  },
+});
