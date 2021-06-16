@@ -104,6 +104,7 @@ export default function ScrollView() {
           contentContainerStyle={{ paddingHorizontal: 10 }}
           stickySectionHeadersEnabled={false}
           sections={SECTIONS}
+          showsVerticalScrollIndicator={false}
           renderSectionHeader={({ section }) => (
             <>
               <Text style={styles.sectionHeader}>{section.title}</Text>
@@ -143,7 +144,7 @@ const SECTIONS = [
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 70,
+    marginTop: 20,
   },
   sectionHeader: {
     fontWeight: "bold",

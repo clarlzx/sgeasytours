@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 
-const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const days = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
 
 export default function CrowdModal({ day, time, data, percentage }) {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -11,18 +19,38 @@ export default function CrowdModal({ day, time, data, percentage }) {
     setModalVisible(!isModalVisible);
   };
 
+  let status = "";
+
+  if (percentage < 50) {
+    status = "Not Crowded";
+  } else if (percentage < 75) {
+    status = "Some Crowd";
+  } else {
+    status = "Crowded";
+  }
+
   return (
     <View style={{ flex: 1 }}>
-      <TouchableOpacity style={
-        percentage < 50 ? styles.notcrowdedbutton : percentage < 75 ? styles.somecrowdbutton : styles.crowdedbutton
-       } onPress={toggleModal} />
+      <TouchableOpacity
+        style={
+          percentage < 50
+            ? styles.notcrowdedbutton
+            : percentage < 75
+            ? styles.somecrowdbutton
+            : styles.crowdedbutton
+        }
+        onPress={toggleModal}
+      />
 
       <Modal isVisible={isModalVisible}>
         <View style={styles.container}>
           <View style={styles.textContainer}>
             <Text style={styles.titletext}>Estimated Crowd</Text>
-            <Text style={styles.titletext}>({day}, {time})</Text>
+            <Text style={styles.titletext}>
+              {day}, {time}
+            </Text>
             <Text style={styles.datatext}>{data}</Text>
+            <Text style={styles.statustext}>({status})</Text>
           </View>
 
           <TouchableOpacity style={styles.closeButton} onPress={toggleModal}>
@@ -36,18 +64,19 @@ export default function CrowdModal({ day, time, data, percentage }) {
 
 const styles = StyleSheet.create({
   titletext: { fontWeight: "bold" },
-  datatext: { fontWeight:"bold", color: "grey", fontSize: 22 },
+  datatext: { fontWeight: "bold", color: "grey", fontSize: 22 },
+  statustext: { color: "grey", fontSize: 10 },
   crowdedbutton: { flex: 1, backgroundColor: "#5f4bc1" },
   somecrowdbutton: { flex: 1, backgroundColor: "#7f9c6a" },
   notcrowdedbutton: { flex: 1, backgroundColor: "#bbc2b4" },
   container: {
     //flex: 0.2,
-    height: 120,
+    height: 140,
     width: 200,
     backgroundColor: "white",
     borderRadius: 10,
     alignItems: "center",
-    alignSelf: "center"
+    alignSelf: "center",
   },
   textContainer: {
     width: "100%",

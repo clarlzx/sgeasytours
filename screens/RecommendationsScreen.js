@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import { Context } from "../components/Context";
 import firebase from "../database/firebaseDB";
 import { getDistance } from "geolib";
@@ -13,7 +7,6 @@ import RecommendationItem from "../components/RecommendationItem";
 
 export default function RecommendationsScreen({ navigation }) {
   const dataList = React.useContext(Context);
-  // console.log(dataList);
 
   const [attractions, setAttractions] = useState([]);
 
@@ -55,13 +48,14 @@ export default function RecommendationsScreen({ navigation }) {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "lightsalmon",
+        backgroundColor: "white",
       }}
     >
       <Text style={{ padding: 10, fontSize: 20, marginTop: 5 }}>
         Visit somewhere else near!
       </Text>
       <FlatList
+        showsVerticalScrollIndicator={false}
         style={styles.flatList}
         data={attractions.filter(
           (attraction) => attraction.name != dataList.name
