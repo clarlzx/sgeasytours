@@ -137,11 +137,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "darkblue",
+    textAlign: "center",
   },
   distanceTextBottom: {
     fontSize: 15,
     fontWeight: "bold",
     color: "darkblue",
+    textAlign: "center",
   },
   drivingContainer: {
     width: Dimensions.get("screen").width * 0.16,
@@ -152,6 +154,7 @@ const styles = StyleSheet.create({
   drivingText: {
     fontWeight: "bold",
     color: "indianred",
+    textAlign: "center",
   },
   walkingContainer: {
     width: Dimensions.get("screen").width * 0.16,
@@ -162,5 +165,6 @@ const styles = StyleSheet.create({
   walkingText: {
     fontWeight: "bold",
     color: "darkolivegreen",
+    textAlign: "center",
   },
 });

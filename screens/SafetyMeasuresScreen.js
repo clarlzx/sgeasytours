@@ -107,11 +107,13 @@ export default function SafetyMeasuresScreen() {
           <Text style={{ fontSize: 14, fontWeight: "bold" }}>Legend:</Text>
           <View style={{ marginLeft: 10 }}>
             <View style={styles.entranceCircle} />
-            <Text style={{ fontSize: 11 }}>Entrances</Text>
+            <Text style={{ fontSize: 11, textAlign: "right" }}>Entrances</Text>
           </View>
           <View style={{ marginLeft: 10 }}>
             <View style={styles.handSanitiserCircle} />
-            <Text style={{ fontSize: 11 }}>Hand sanitiser{"\n"}points</Text>
+            <Text style={{ fontSize: 11, textAlign: "right" }}>
+              Hand Sanitiser{"\n"}Points
+            </Text>
           </View>
         </View>
         <MapView
@@ -147,7 +149,7 @@ export default function SafetyMeasuresScreen() {
                 pinColor="aqua"
                 key={index}
                 coordinate={item.coordinates}
-                title="Hand sanitiser point"
+                title="Hand Sanitiser Point"
               />
             );
           })}

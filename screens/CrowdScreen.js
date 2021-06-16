@@ -131,15 +131,21 @@ export default function CrowdScreen() {
         <Text style={{ fontSize: 14, fontWeight: "bold" }}>Legend:</Text>
         <View style={{ marginLeft: 10 }}>
           <View style={styles.notcrowdedcircle} />
-          <Text style={{ fontSize: 11 }}>{"Not Crowded\n(<50%)"}</Text>
+          <Text style={{ fontSize: 11, textAlign: "right" }}>
+            {"Not Crowded\n(<50%)"}
+          </Text>
         </View>
         <View style={{ marginLeft: 10 }}>
           <View style={styles.somecrowdcircle} />
-          <Text style={{ fontSize: 11 }}>{"Some Crowd\n(50%-75%)"}</Text>
+          <Text style={{ fontSize: 11, textAlign: "right" }}>
+            {"Some Crowd\n(50%-75%)"}
+          </Text>
         </View>
         <View style={{ marginLeft: 10 }}>
           <View style={styles.crowdedcircle} />
-          <Text style={{ fontSize: 11 }}>{"Crowded\n(>75%)"}</Text>
+          <Text style={{ fontSize: 11, textAlign: "right" }}>
+            {"Crowded\n(>75%)"}
+          </Text>
         </View>
       </View>
 
