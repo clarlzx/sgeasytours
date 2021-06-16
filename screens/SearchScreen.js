@@ -74,6 +74,7 @@ export default function SearchScreen({ navigation }) {
         leftElement="arrow-back"
         onLeftElementPress={() => navigation.goBack()}
         centerElement="Search attractions..."
+        onPress={() => alert("Please click on the search icon to search")}
         searchable={{
           autoFocus: true,
           placeholder: "Search attractions...",
