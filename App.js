@@ -1,31 +1,44 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, ImageBackground } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import TitleImage from "./components/TitleImage";
+import BookButton from "./components/BookButton";
+import firebase from "./database/firebaseDB";
 import HomeScreen from "./screens/HomeScreen";
 import AttractionTabNavigation from "./screens/AttractionTabNavigation";
-import firebase from "./database/firebaseDB";
 
-// to add stuff to the collection in firebase
-// firebase.firestore().collection("attractions").add({
-//   name: "hello",
-// });
-
-// to retrieve stuff from firebase
-// firebase.firestore().collection("category").doc('themeWaterPark').get().then((doc) => {
-//   const name = doc.data().name;
-//   console.log(name);
-// })
+const db = firebase.firestore().collection("attractions");
 
 const Stack = createStackNavigator();
 
 export default function App() {
+  const [attractions, setAttractions] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = db.onSnapshot((collection) => {
+      //Sort attractions alphabetically
+      const updateAttractions = collection.docs.map((doc) => {
+        return {
+          key: doc.id,
+          ...doc.data(),
+        };
+      });
+
+      setAttractions(updateAttractions);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="Home Screen"
-          component={HomeScreen}
+          children={() => <HomeScreen attractions={attractions} />}
           options={{
             headerShown: false,
           }}
@@ -33,8 +46,19 @@ export default function App() {
         <Stack.Screen
           name="Attraction Tab Screen"
           component={AttractionTabNavigation}
+          options={({ route }) => ({
+            headerTitle: null,
+            headerStatusBarHeight: 180,
+            headerBackground: () => (
+              <TitleImage attractionDetails={route.params} />
+            ),
+            headerRight: () => <BookButton attractionDetails={route.params} />,
+            headerTintColor: "white",
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({});
