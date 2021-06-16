@@ -32,6 +32,8 @@ export default function CrowdScreen() {
 
   const day = (day) => <Text style={{ fontSize: 9, textAlign: 'center' }}>{day}</Text>;
 
+  console.log(dataList);
+
   return (
     <View
       horizontal={true}
