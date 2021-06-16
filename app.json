@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "primaryColor": "#E5E5E5",
     "splash": {
-      "image": "./assets/loadingPage.png",
+      "image": "./assets/startUpPage.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
