@@ -33,14 +33,15 @@ export default function RecommendationsScreen({ navigation }) {
             distance: (distance / 1000).toFixed(2), //in KM, to 2 d.p.
           };
         });
-        attractions.sort((a, b) => a.distance.localeCompare(b.distance));
+        attractions.sort((a, b) => a.distance - b.distance);
+
         setAttractions(attractions);
       });
 
     return () => {
       unsubscribe();
     };
-  }, []);
+  });
 
   return (
     <View
